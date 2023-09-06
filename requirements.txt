@@ -1,0 +1,7 @@
+asgiref
+Django
+pytz
+sqlparse
+typing_extensions
+tzdata
+gunicorn
