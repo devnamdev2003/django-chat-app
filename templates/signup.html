@@ -125,13 +125,13 @@
   </head>
   <body>
     <div class="container">
-      <br>
-      <br>
+      <br />
+      <br />
       <div id="login-header">
         <div id="title">Signup</div>
       </div>
-      <br>
-      <br>
+      <br />
+      <br />
 
       <form action method="post" onsubmit="return validateForm()">
         {% csrf_token %}
@@ -151,16 +151,21 @@
         </div>
         <button type="submit">Signup</button>
       </form>
-      <br>
+      <br />
       <p class="message">{{ error_message }}</p>
     </div>
     <script>
       function validateForm() {
+        var usernameInput = document.getElementById('username')      
         var username = document.getElementById('username').value
         var email = document.getElementById('email').value
         var password1 = document.getElementById('password1').value
         var password2 = document.getElementById('password2').value
-      
+
+        if (/\s/.test(username)) {
+          alert('Username cannot contain spaces.')
+          return false
+        }
         if (username === '' || email === '' || password1 === '' || password2 === '') {
           document.querySelector('.message').innerHTML = 'Please fill in all required fields.'
           return false

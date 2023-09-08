@@ -135,7 +135,7 @@
       <br />
       <br />
       <br />
-      <form method="post">
+      <form method="post" onsubmit="return validateUsername()">
         {% csrf_token %}
         <div id="login-fields">
           <input type="text" placeholder="Username" id="username" name="username" required />
@@ -154,6 +154,17 @@
       {% endif %}
     </div>
     <script>
+      function validateUsername() {
+        var usernameInput = document.getElementById('username')
+        var usernameValue = usernameInput.value
+      
+        if (/\s/.test(usernameValue)) {
+          alert('Username cannot contain spaces.')
+          usernameInput.value = usernameValue.replace(/\s/g, '')
+          return false
+        }
+        return true // Allow form submission if there are no spaces
+      }
       if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href)
       }

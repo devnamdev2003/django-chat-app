@@ -151,7 +151,7 @@
       <br />
       <br />
       <br />
-      <form method="post">
+      <form method="post" onsubmit="return validateUsername()">
         {% csrf_token %}
         <div id="login-fields">
           <label for="username">Username</label>
@@ -164,7 +164,7 @@
             <a href="{% url 'home' %}">Home</a>
           </div>
         </div>
-        <button type="submit">Update Profile</button>
+        <button id="submit-button" type="submit">Update Profile</button>
       </form>
       <br />
       <br />
@@ -172,14 +172,24 @@
       {% if success_message %}
         <p class="smessage">{{ success_message }}</p>
       {% endif %}
-
       {% if error_message %}
         <p class="emessage">{{ error_message }}</p>
       {% endif %}
     </div>
     <script>
-      if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href)
+      function validateUsername() {
+        var usernameInput = document.getElementById('username')
+        console.log(usernameInput)
+        var usernameValue = usernameInput.value
+      
+        // Check if the username contains spaces
+        if (/\s/.test(usernameValue)) {
+          alert('Username cannot contain spaces.')
+          usernameInput.value = usernameValue.replace(/\s/g, "");
+          return false
+        }
+      
+        return true // Allow form submission if there are no spaces
       }
     </script>
   </body>
