@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import UserRelation
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 @login_required(login_url="login")
@@ -13,6 +15,15 @@ def delete_friend(request):
         user = request.user
         friend = User.objects.get(username=username)
         try:
+            print("starts")
+            exists = UserRelation.objects.filter(user=user, friend=friend).exists()
+            print("sts")
+            if exists:
+                pass
+            else:
+                return HttpResponseRedirect(
+                    request.META.get("HTTP_REFERER", reverse("home"))
+                )
             user_relation = UserRelation.objects.get(user=user, friend=friend)
             user_relation.delete()
 
@@ -35,6 +46,13 @@ def accept_request(request):
         user = request.user
         friend = User.objects.get(username=username)
         accepted = True
+
+        exists = UserRelation.objects.filter(user=user, friend=friend).exists()
+        print("sts")
+        if exists:
+            return HttpResponseRedirect(
+                request.META.get("HTTP_REFERER", reverse("home"))
+            )
         user_relation = UserRelation(user=user, friend=friend, accepted=accepted)
         user_relation.save()
 
@@ -55,6 +73,14 @@ def add_friend(request):
         user = request.user
         friend = User.objects.get(username=username)
         accepted = False
+        print("starts")
+        exists = UserRelation.objects.filter(user=user, friend=friend).exists()
+        print("sts")
+        if exists:
+            print("star")
+            return HttpResponseRedirect(
+                request.META.get("HTTP_REFERER", reverse("home"))
+            )
         user_relation = UserRelation(user=user, friend=friend, accepted=accepted)
         user_relation.save()
         messages.success(request, "Request sended successfully.")
