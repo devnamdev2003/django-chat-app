@@ -1,29 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-
-    <title>Home Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      * {
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        text-transform: capitalize;
+      }
+      
+      :root {
+        font-size: 62.5%;
+      }
+      
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: white;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #374045;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      
+      body {
+        background-color: #131518;
+        font-family: sans-serif;
+        color: aliceblue;
+      }
+      
+      .container {
+        max-width: 500px;
+        margin: auto;
+        position: relative;
+        top: 30px;
+        height: 90vh;
+        background-color: #282a2d;
+        border: 2px solid rgb(255, 132, 0);
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 4px 4px 10px -4px #9339f5;
+        overflow-y: hidden;
+      }
+      
+      @media screen and (max-width: 550px) {
+        .container {
+          top: 0px;
+          max-width: 550px;
+          height: 100vh;
+        }
+      }
+      
+      a {
+        display: inline-block;
+        width: 100%;
+        text-decoration: none;
+        color: aliceblue;
+        cursor: pointer;
+        /* border: 1px solid white; */
+      }
+      
+      .row1 {
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px solid rgb(76, 76, 76);
+      }
+      
+      .top_row div {
+        width: 100%;
+      }
+      
+      .top_row {
+        font-size: 1.6rem;
+        padding: 1em 0em;
+        border-bottom: 1px solid rgb(146, 146, 146);
+      }
+      
+      .row2 div {
+        width: 100%;
+        padding: 1em 0em;
+      }
+      
+      .row2 {
+        position: relative;
+        border: none;
+        background: #646464;
+        /* border-bottom: 1px solid rgb(255, 255, 255); */
+      }
+      .friend {
+        background: #000;
+      }
+      
+      div.row2 div.moving {
+        width: 50%;
+        padding: 1.1em 0em;
+        position: absolute;
+        left: 0%;
+        /* border-radius: 20px 20px 0px 0px; */
+        background: #000;
+        border-bottom: 0px solid rgb(120, 120, 120);
+        transition: left 0.5s ease;
+        z-index: 2;
+      }
+      
+      .btn {
+        font-size: 1.6rem;
+        display: inline-block;
+        width: 100%;
+        text-decoration: none;
+        color: aliceblue;
+        cursor: pointer;
+        background: transparent;
+        outline: none;
+        border: none;
+      }
+      
+      .friend_list {
+        height: 100%;
+        overflow-y: scroll;
+      }
+      
+      .request_list {
+        display: none;
+        height: 100%;
+        overflow-y: scroll;
+      }
+      
+      .user {
+        font-size: 1.6rem;
+        padding: 1em 0px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Home Page</h1>
-    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
-    <a href="{% url 'edit' %}" class="btn btn-primary">Edit</a>
-    <br />
-    <br />
-    <br />
-    <h1>Name: <span>{{ data.username }}</span></h1>
-    <h1>Email: <span>{{ data.email }}</span></h1>
+    {% for message in messages %}
+      <span class="success">{{ message }}</span>
+    {% endfor %}
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <div class="container">
+      <div class="row1 top_row">
+        <div class="col1">
+          <a>{{ data.username }}</a>
+        </div>
+        <div>
+          <a href="{% url 'edit' %}" class="btn btn-primary">Edit</a>
+        </div>
+        <div>
+          <a href="{% url 'search' %}" class="btn btn-primary">search</a>
+        </div>
+        <div>
+          <a href="{% url 'logout' %}" class="btn btn-primary">logout</a>
+        </div>
+      </div>
+      <div class="row1 row2">
+        <div class="moving">
+          <button class="btn">friends</button>
+        </div>
+        <div class="friends col1 bg1">
+          <button class="btn friend_btn">friends</button>
+        </div>
+        <div class="request col1">
+          <button class="btn request_btn">request</button>
+        </div>
+      </div>
+      <div class="friend_list">
+        {% for friend_data in data.friends %}
+          {% if friend_data.accepted %}
+            <div class="row1 user">
+              <a href="{{ friend_data.username }}">{{ friend_data.username }}</a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="request_list">
+        {% for users_data in data.requests %}
+          <div class="row1 user">
+            <a href="{{ users_data.username }}">{{ users_data.username }}</a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script>
+      message = document.querySelector('.success')
+      if (message) {
+        alert(message.innerText)
+        message.innerHTML = ''
+      }
+      friend_btn = document.querySelector('.friend_btn')
+      friend = document.querySelector('.friends')
+      friend_list = document.querySelector('.friend_list')
+      request_list = document.querySelector('.request_list')
+      request_btn = document.querySelector('.request_btn')
+      request = document.querySelector('.request')
+      moving = document.querySelector('.moving')
+      request_btn.addEventListener('click', () => {
+        request_list.style.display = 'block'
+        friend_list.style.display = 'none'
+        moving.style.right = '0%'
+        moving.style.background = 'black'
+        moving.innerHTML = '<button class="btn request_btn">request</button>'
+        moving.style.left = '50%'
+        moving.style.borderRadiusLeft = '0px'
+      })
+      friend_btn.addEventListener('click', () => {
+        request_list.style.display = 'none'
+        friend_list.style.display = 'block'
+        moving.style.background = 'black'
+        moving.style.right = '50%'
+        moving.innerHTML = '<button class="btn friend_btn">friends</button>'
+        moving.style.left = '0%'
+      })
+    </script>
   </body>
 </html>

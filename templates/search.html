@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    {% comment %} <meta http-equiv="refresh" content="1" /> {% endcomment %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search</title>
+    <style>
+      * {
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+      
+      :root {
+        font-size: 62.5%;
+      }
+      
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: white;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #374045;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      
+      body {
+        background-color: #131518;
+        font-family: sans-serif;
+        color: aliceblue;
+      }
+      
+      .container {
+        max-width: 500px;
+        margin: auto;
+        position: relative;
+        top: 30px;
+        height: 90vh;
+        background-color: #282a2d;
+        border: 2px solid rgb(255, 132, 0);
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 4px 4px 10px -4px #9339f5;
+        overflow-y: hidden;
+      }
+      
+      @media screen and (max-width: 550px) {
+        .container {
+          top: 0px;
+          max-width: 550px;
+          height: 100vh;
+        }
+      }
+      
+      a {
+        display: inline-block;
+        width: 100%;
+        text-decoration: none;
+        color: aliceblue;
+        cursor: pointer;
+      }
+      
+      .row1 {
+        display: flex;
+        justify-content: space-around;
+      }
+      
+      .top_row div {
+        width: 100%;
+      }
+      
+      .top_row {
+        font-size: 1.8rem;
+        padding: 1em 0em;
+      }
+      .user {
+        font-size: 1.7rem;
+        padding: 1em 0px;
+        border-bottom: 1px solid rgb(146, 146, 146);
+      }
+      
+      .friend_list {
+        height: 100%;
+        overflow-y: scroll;
+      }
+      .smessage {
+        padding: 0.8em 0px;
+        border-bottom: 1px solid grey;
+        margin: 0px auto;
+        font-size: 1.8rem;
+        color: #39f542;
+      }
+      
+      .smessage:hover {
+        transition-duration: 0.2s;
+        color: #7df587;
+      }
+      .emessage {
+        margin-top: 10rem;
+        color: #f53939;
+        font-size: 1.8rem;
+      }
+      
+      .emessage:hover {
+        transition-duration: 0.2s;
+        color: #f57d7d;
+      }
+      form {
+        border-bottom: 1px solid rgb(146, 146, 146);
+      }
+      input {
+        margin-right: 2rem;
+        padding: 12px 0px;
+        text-align: center;
+        color: #fff;
+        font-size: 2rem;
+        background: #131518;
+        border-radius: 8px;
+        outline: none;
+        border: none;
+      }
+      ::placeholder {
+        color: #7a7a7a;
+        opacity: 1;
+      }
+      .sbtn {
+        padding: 1.3rem 2rem;
+        color: #fff;
+        background: #9339f5;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.6rem;
+      }
+      .sbtn:hover {
+        transition-duration: 0.2s;
+        background: #6421eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <br />
+      <div class="row1 top_row">
+        <div class="col1">
+          <a href="{% url 'home' %}">{{ user }}</a>
+        </div>
+      </div>
+      <br />
+      <div>
+        <form class="form" method="get" action="{% url 'search' %}">
+          <input type="text" name="q" placeholder="Search for users" value="{{ query }}" required />
+          <button class="sbtn" type="submit">Search</button>
+        </form>
+      </div>
+
+      {% if query %}
+        {% comment %} <p class="smessage user">Search Results for "{{ query }}"</p> {% endcomment %}
+
+        <div class="friend_list">
+          {% if users %}
+            {% for fuser in users %}
+              <div class="row1 user">
+                <a href="../user/{{ fuser.username }}">{{ fuser.username }}</a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="emessage">{{ not_found_message }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="friend_list"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    text-transform: capitalize;
+}
+
+:root {
+
+    font-size: 62.5%;
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #374045;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+body {
+    background-color: #131518;
+    font-family: sans-serif;
+    color: aliceblue;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    top: 30px;
+    height: 90vh;
+    background-color: #282a2d;
+    border: 2px solid rgb(255, 132, 0);
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 4px 4px 10px -4px #9339f5;
+    overflow-y: hidden;
+}
+
+@media screen and (max-width: 550px) {
+    .container {
+        top: 0px;
+        max-width: 550px;
+        height: 100vh;
+    }
+}
+
+a {
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    color: aliceblue;
+    cursor: pointer;
+    /* border: 1px solid white; */
+
+}
+
+.row1 {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid rgb(76, 76, 76);
+}
+
+.top_row div {
+    width: 100%;
+}
+
+.top_row {
+    font-size: 1.6rem;
+    padding: 1em 0em;
+    border-bottom: 1px solid rgb(146, 146, 146);
+
+}
+
+.row2 div {
+    width: 100%;
+    padding: 1em 0em;
+}
+
+.row2 {
+    position: relative;
+    border: none;
+    background: #646464;
+    /* border-bottom: 1px solid rgb(255, 255, 255); */
+
+}
+.friend{
+    background: #000;
+}
+
+div.row2 div.moving {
+    width: 50%;
+    padding: 1.1em 0em;
+    position: absolute;
+    left: 0%;
+    /* border-radius: 20px 20px 0px 0px; */
+    background: #000;
+    border-bottom: 0px solid rgb(120, 120, 120);
+    transition: left .5s ease;
+    z-index: 2;
+}
+
+
+
+.btn {
+    font-size: 1.6rem;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    color: aliceblue;
+    cursor: pointer;
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.friend_list {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.request_list {
+    display: none;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.user {
+    font-size: 1.6rem;
+    padding: 1em 0px;
+}
+
