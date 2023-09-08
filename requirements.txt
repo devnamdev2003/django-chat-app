@@ -5,3 +5,4 @@ sqlparse
 typing_extensions
 tzdata
 gunicorn
+djangorestframework
