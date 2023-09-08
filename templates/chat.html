@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    {% comment %} <meta http-equiv="refresh" content="1" /> {% endcomment %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <title>Chat</title>
+    <style>
+      * {
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        text-transform: capitalize;
+      }
+      :root {
+        font-size: 62.5%;
+      }
+      
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: white;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #374045;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      
+      body {
+        background-color: #131518;
+        font-family: sans-serif;
+        color: aliceblue;
+      }
+      .outer {
+        max-width: 500px;
+        margin: auto;
+        position: relative;
+        top: 30px;
+        height: 90vh;
+        background-color: #282a2d;
+        border: 2px solid rgb(255, 132, 0);
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 4px 4px 10px -4px #9339f5;
+        overflow-y: hidden;
+      }
+      @media screen and (max-width: 550px) {
+        .outer {
+          top: 0px;
+          max-width: 550px;
+          height: 100vh;
+        }
+      }
+      a {
+        display: inline-block;
+        text-decoration: none;
+        color: aliceblue;
+        cursor: pointer;
+      }
+      
+      .top {
+        padding: 1rem;
+        font-size: 2rem;
+        border-bottom: 1px solid grey;
+        height: 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .back {
+        float: left;
+      }
+      
+      .username {
+        text-align: center;
+        flex-grow: 1;
+      }
+      .messages {
+        height: 84%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .bottom {
+        height: 8%;
+      }
+      .container {
+        font-size: 1.4rem;
+        border: 2px solid grey;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 0.4rem 1rem;
+      }
+      .right_mess {
+        text-align: right;
+      }
+      .left_mess {
+        text-align: left;
+      }
+      .container span {
+        font-size: 0.9rem;
+      }
+      form {
+        margin: 0rem 1rem;
+        padding-top: 0.5rem;
+        height: 100%;
+      }
+      input {
+        width: 69%;
+        padding: 1.2rem 0px;
+        text-align: center;
+        color: #fff;
+        font-size: 1.6rem;
+        background: #131518;
+        border-radius: 8px;
+        outline: none;
+        border: none;
+      }
+      ::placeholder {
+        color: #7a7a7a;
+        opacity: 1;
+      }
+      #send_btn {
+        padding: 1rem 2rem;
+        color: #fff;
+        background: #9339f5;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.6rem;
+        width: 29%;
+      }
+      #send_btn:hover {
+        transition-duration: 0.2s;
+        background: #6421eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="top">
+        <a class="back" href="../user/">Back</a>
+
+        <a class="username" href="../user/{{ friend.username }}">{{ friend.username }}</a>
+      </div>
+      <div class="messages" id="board">
+        {% for message in messages %}
+          {% if curr_user == message.sender_name %}
+            <div class="container right_mess">
+              <p>{{ message.description }}</p>
+              <span class="time-right">{{ message.time }}</span>
+            </div>
+          {% else %}
+            <div class="container left_mess">
+              <p>{{ message.description }}</p>
+              <span class="time-left">{{ message.time }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="bottom">
+        <form method="post" class="form-group" id="chat-box">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <input type="text" placeholder="Send a message..." name="message" id="msg_field" />
+              <button type="submit" name="send" class="btn btn-success" id="send_btn">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      sender_id = '{{ friend.id }}'
+      receiver_id = '{{ curr_user.id }}'
+      var messageBody = document.querySelector('.messages')
+      messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight
+      
+      const text = '<div class="container left_mess">' + '<p>{description}</p>' + '<span class="time-left">{time}</span>' + '</div>'
+      const text_box = '<div class="container right_mess">' + '<p>{description}</p>' + '<span class="time-right">{time}</span>' + '</div>'
+      
+      function scrolltoend() {
+        $('#board')
+          .stop()
+          .animate(
+            {
+              scrollTop: $('#board')[0].scrollHeight
+            },
+            800
+          )
+      }
+      
+      $(function () {
+        setInterval(receive, 1000)
+      })
+      
+      function receive() {
+        $.get('/api/messages/' + sender_id + '/' + receiver_id, function (data) {
+          if (data.length !== 0) {
+            for (var i = 0; i < data.length; i++) {
+              var field = text.replace('{description}', data[i].description)
+              var time = data[i].time.slice(0, 5) + ' a.m'
+              field = field.replace('{time}', time)
+              $('#board').append(field)
+              scrolltoend()
+            }
+          }
+        })
+      }
+      //For sending
+      $(function () {
+        $('#chat-box').on('submit', function (event) {
+          event.preventDefault()
+          var message = $('#msg_field')
+          send('{{ curr_user.username }}', '{{ friend.username }}', message.val())
+          message.val('')
+        })
+      })
+      
+      function send(sender, receiver, message) {
+        $.post('/api/messages', '{"sender_name": "' + sender + '", "receiver_name": "' + receiver + '","description": "' + message + '" }', function (data) {
+          var field = text_box.replace('{description}', message)
+          var today = new Date()
+          var time = today.getHours() + ':' + today.getMinutes()
+          field = field.replace('{time}', time)
+          $('#board').append(field)
+          scrolltoend()
+        })
+      }
+    </script>
+  </body>
+</html>

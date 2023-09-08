@@ -46,7 +46,9 @@
       
       a {
         display: inline-block;
-        width: 100%;
+        padding: 1.3rem 2rem;
+        border-radius: 5px;
+        border: 2px solid #131518;
         text-decoration: none;
         color: aliceblue;
         cursor: pointer;
@@ -65,7 +67,9 @@
         transition-duration: 0.2s;
         background: #6421eb;
       }
-      
+      .cbtn{
+        padding: 0%;
+      }
       .row {
         display: flex;
         justify-content: center;
@@ -142,7 +146,9 @@
               <input hidden type="text" name="username" value="{{ user_details.username }}" />
               <button class="sbtn dbtn" type="submit">Remove Friend</button>
             </form>
-            <button class="sbtn cbtn">Chat</button>
+            <button class="sbtn cbtn">
+              <a href="../../chat/{{ user_details.username }}" class="btn btn-primary">Chat</a>
+            </button>
           </div>
         {% endif %}
       {% endif %}

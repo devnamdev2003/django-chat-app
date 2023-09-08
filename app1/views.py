@@ -2,10 +2,71 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import UserRelation
+from .models import UserRelation, Messages
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser
+from app1.serializers import MessageSerializer
+from django.contrib import messages as django_messages  # Rename the variable here
+
+
+@login_required(login_url="login")
+def chat(request, username):
+    try:
+        usersen = request.user
+        friend = User.objects.get(username=username)
+        exists = UserRelation.objects.filter(
+            user=request.user, friend=friend, accepted=True
+        ).exists()
+
+        if not exists:
+            django_messages.error(
+                request, "You are not able to chat with this user."
+            )  # Use the renamed variable here
+            return redirect("home")
+    except User.DoesNotExist:
+        return redirect("home")
+
+    messages = Messages.objects.filter(
+        sender_name=usersen, receiver_name=friend
+    ) | Messages.objects.filter(sender_name=friend, receiver_name=usersen)
+    if request.method == "GET":
+        return render(
+            request,
+            "chat.html",
+            {
+                "messages": messages,
+                "curr_user": usersen,
+                "friend": friend,
+            },
+        )
+
+
+@login_required(login_url="login")
+@csrf_exempt
+def message_list(request, sender=None, receiver=None):
+    if request.method == "GET":
+        messages = Messages.objects.filter(
+            sender_name=sender, receiver_name=receiver, seen=False
+        )
+        serializer = MessageSerializer(
+            messages, many=True, context={"request": request}
+        )
+        for message in messages:
+            message.seen = True
+            message.save()
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = MessageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
 
 
 @login_required(login_url="login")

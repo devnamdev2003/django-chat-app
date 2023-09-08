@@ -3,6 +3,16 @@ from .models import UserRelation
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from .models import Messages
+
+
+class MessagesAdmin(admin.ModelAdmin):
+    list_display = ("sender_name", "receiver_name", "time", "seen")
+    list_filter = ("sender_name", "receiver_name", "seen")
+    search_fields = ("sender_name__username", "receiver_name__username", "description")
+
+
+admin.site.register(Messages, MessagesAdmin)
 
 
 # Define a custom admin class for the User model

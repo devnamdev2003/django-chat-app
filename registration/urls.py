@@ -19,6 +19,11 @@ urlpatterns = [
     path("delete_friend/", views.delete_friend, name="delete_friend"),
     path("search/", views.search, name="search"),
     re_path(r"^.*/$", RedirectView.as_view(pattern_name="login", permanent=False)),
+    
+    
+    path("chat/<str:username>", views.chat, name="chat"),
+    path('api/messages/<int:sender>/<int:receiver>', views.message_list, name='message-detail'),
+    path('api/messages', views.message_list, name='message-list'),
 ]
 
 
