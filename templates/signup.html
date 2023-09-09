@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>Signup</title>
     <style>
       * {
@@ -156,12 +160,12 @@
     </div>
     <script>
       function validateForm() {
-        var usernameInput = document.getElementById('username')      
+        var usernameInput = document.getElementById('username')
         var username = document.getElementById('username').value
         var email = document.getElementById('email').value
         var password1 = document.getElementById('password1').value
         var password2 = document.getElementById('password2').value
-
+      
         if (/\s/.test(username)) {
           alert('Username cannot contain spaces.')
           return false
