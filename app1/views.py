@@ -367,20 +367,30 @@ def LoginPage(request):
     if request.user.is_authenticated:
         return redirect("home")
     error_message = ""
+    email = ""
     if request.method == "POST":
-        username = request.POST.get("username")
+        email = request.POST.get("email")
         pass1 = request.POST.get("pass")
-        user = authenticate(request, username=username, password=pass1)
+        try:
+            curr_user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            error_message = "Email not found. Please check your Email."
+            return render(
+                request, "login.html", {"error_message": error_message, "email": email}
+            )
+
+        user = authenticate(request, username=curr_user.username, password=pass1)
         if user is not None:
             login(request, user)
             return redirect("home")
         else:
-            # Check if the username exists
-            if User.objects.filter(username=username).exists():
+            if User.objects.filter(username=curr_user.username).exists():
                 error_message = "Incorrect password. Please try again."
             else:
-                error_message = "Username not found. Please check your username."
-    return render(request, "login.html", {"error_message": error_message})
+                error_message = "Email not found. Please check your email."
+    return render(
+        request, "login.html", {"error_message": error_message, "email": email}
+    )
 
 
 def LogoutPage(request):

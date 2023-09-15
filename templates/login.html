@@ -3,6 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Django chatapp" />
+    <meta name="description" content=" Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly 
+chat, friend management, and social interaction." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Django chatapp" />
+    <meta name="description" content=" Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly 
+chat, friend management, and social interaction." />
+    <meta property="og:image" content="https://filesstatic.netlify.app/Chatapp/img/share.jpeg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Django chatapp" />
+    <meta property="twitter:image" content="https://filesstatic.netlify.app/Chatapp/img/share.jpeg" />
+    <meta name="description" content=" Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly 
+chat, friend management, and social interaction." />
+
     <link rel="apple-touch-icon" sizes="180x180" href="https://filesstatic.netlify.app/chatapp/favicon_io/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="https://filesstatic.netlify.app/chatapp/favicon_io/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="https://filesstatic.netlify.app/chatapp/favicon_io/favicon-16x16.png" />
@@ -142,7 +160,7 @@
       <form method="post" onsubmit="return validateUsername()">
         {% csrf_token %}
         <div id="login-fields">
-          <input type="text" placeholder="Username" id="username" name="username" required />
+          <input type="email" placeholder="Email" name="email" id="email" required value="{{ email }}" />
           <input type="password" placeholder="Password" id="password" name="pass" required />
         </div>
         <div id="password-relative">
@@ -158,17 +176,6 @@
       {% endif %}
     </div>
     <script>
-      function validateUsername() {
-        var usernameInput = document.getElementById('username')
-        var usernameValue = usernameInput.value
-      
-        if (/\s/.test(usernameValue)) {
-          alert('Username cannot contain spaces.')
-          usernameInput.value = usernameValue.replace(/\s/g, '')
-          return false
-        }
-        return true // Allow form submission if there are no spaces
-      }
       if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href)
       }
