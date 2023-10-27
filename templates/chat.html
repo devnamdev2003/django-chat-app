@@ -78,9 +78,9 @@ chat, friend management, and social interaction." />
       }
       @media screen and (max-width: 550px) {
         .outer {
-          top: 0px;
+          top: 50px;
           max-width: 550px;
-          height: 100vh;
+          height: 80vh;
         }
       }
       a {
@@ -233,7 +233,7 @@ chat, friend management, and social interaction." />
           if (data.length !== 0) {
             for (var i = 0; i < data.length; i++) {
               var field = text.replace('{description}', data[i].description)
-              var time = data[i].time.slice(0, 5);
+              var time = data[i].time.slice(0, 5)
               field = field.replace('{time}', time)
               $('#board').append(field)
               scrolltoend()

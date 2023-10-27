@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from app1.serializers import MessageSerializer
-from django.contrib import messages as django_messages  # Rename the variable here
+from django.contrib import messages as django_messages  
 
 
 @login_required(login_url="login")
