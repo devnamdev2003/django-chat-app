@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+import dj_database_url
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -72,12 +77,16 @@ WSGI_APPLICATION = "registration.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+DATABASE_URL = os.getenv("DATABASE_URl")
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
 }
 
 
@@ -105,7 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# TIME_ZONE = "UTC"
+
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

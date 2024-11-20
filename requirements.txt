@@ -6,3 +6,7 @@ typing_extensions
 tzdata
 gunicorn
 djangorestframework
+dj-database-url
+packaging
+psycopg
+python-dotenv

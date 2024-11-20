@@ -11,7 +11,7 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from app1.serializers import MessageSerializer
 from django.contrib import messages as django_messages  
-
+from django.db.models import Q
 
 @login_required(login_url="login")
 def chat(request, username):
@@ -367,16 +367,16 @@ def LoginPage(request):
     if request.user.is_authenticated:
         return redirect("home")
     error_message = ""
-    email = ""
+    email_or_username = ""
     if request.method == "POST":
-        email = request.POST.get("email")
+        email_or_username = request.POST.get("email_or_username")
         pass1 = request.POST.get("pass")
         try:
-            curr_user = User.objects.get(email=email)
+            curr_user = User.objects.get(Q(email=email_or_username) | Q(username=email_or_username))
         except User.DoesNotExist:
-            error_message = "Email not found. Please check your Email."
+            error_message = "User not found. Please check your Email/Username"
             return render(
-                request, "login.html", {"error_message": error_message, "email": email}
+                request, "login.html", {"error_message": error_message, "email": email_or_username}
             )
 
         user = authenticate(request, username=curr_user.username, password=pass1)
@@ -389,7 +389,7 @@ def LoginPage(request):
             else:
                 error_message = "Email not found. Please check your email."
     return render(
-        request, "login.html", {"error_message": error_message, "email": email}
+        request, "login.html", {"error_message": error_message, "email": email_or_username}
     )
 
 

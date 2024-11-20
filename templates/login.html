@@ -160,7 +160,7 @@ chat, friend management, and social interaction." />
       <form method="post" onsubmit="return validateUsername()">
         {% csrf_token %}
         <div id="login-fields">
-          <input type="email" placeholder="Email" name="email" id="email" required value="{{ email }}" />
+          <input type="text" placeholder="Email or Username" name="email_or_username" id="email_or_username" required value="{{ email }}" />
           <input type="password" placeholder="Password" id="password" name="pass" required />
         </div>
         <div id="password-relative">
