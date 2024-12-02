@@ -1,0 +1,48 @@
+# Ignore virtual environment
+venv/
+venv/*
+
+# Python bytecode
+*.py[cod]
+__pycache__/
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+
+# Migrations
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Environment variables
+.env
+
+
+# Static and media files (if not managed by version control)
+# staticfiles/
+# media/
+
+# Ignore coverage and testing files
+htmlcov/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+*.pid
+*.seed
+*.manifest
+*.lock
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn

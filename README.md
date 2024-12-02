@@ -1,4 +1,4 @@
-# [Django Chat Application](https://django-chat-application.onrender.com)
+# [Django Chat Application (Devnoms)](https://devnoms.onrender.com)
 
 The Django Chat Application is a web-based platform that allows users to engage in real-time chat conversations with their friends, manage their profiles, send and accept friend requests, and search for other users within the application. This project provides a user-friendly interface for communication and social interaction, utilizing API calls and polling for real-time chat updates.
 

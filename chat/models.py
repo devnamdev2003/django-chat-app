@@ -11,7 +11,7 @@ class UserRelation(models.Model):
         User, on_delete=models.CASCADE, related_name="friend_relations", default=None
     )
     accepted = models.BooleanField(default=False)
-
+    relation_key = models.CharField(max_length=255, blank=True, null=True)  # Add relation_key field
     def __str__(self):
         return f"{self.user.username} - {self.friend.username}"
 

@@ -200,7 +200,7 @@ chat, friend management, and social interaction." />
         {% for friend_data in data.friends %}
           {% if friend_data.accepted %}
             <div class="row1 user">
-              <a href="../chat/{{ friend_data.username }}">{{ friend_data.username }}</a>
+              <a href="../chat/{{ friend_data.username }}/">{{ friend_data.username }}</a>
             </div>
           {% endif %}
         {% endfor %}
