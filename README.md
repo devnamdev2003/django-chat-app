@@ -2,20 +2,22 @@
 
 The Django Chat Application is a web-based platform that allows users to engage in real-time chat conversations with their friends, manage their profiles, send and accept friend requests, and search for other users within the application. This project provides a user-friendly interface for communication and social interaction, utilizing API calls and polling for real-time chat updates.
 
+## Live Preview
+
+Click the button below to try the **Django Chat Application**:
+
+[![Live Preview](https://img.shields.io/badge/Live-Preview-brightgreen?style=for-the-badge&logo=django)](https://devnoms.onrender.com)
+
+---
+
 ## Key Features
 
 - **User Authentication**: Users must first log in to access the application. New users have the option to sign up for an account.
-
 - **User Profiles**: Each user has a profile page displaying their information. Users can edit their profile information.
-
 - **Navigation**: The application features a simple UI with the following buttons: "Edit Profile," "Logout," and "Search" to allow users to find other users on the platform.
-
 - **Friend Management**: Users can maintain two lists: "Friend List" and "Request List." Users can click on friend names in these lists to access profiles or start chats.
-
 - **Chatting**: Users can initiate chat conversations by clicking on a friend's name. Real-time chat functionality is implemented using API calls and polling, enabling near-instant communication.
-
 - **Friend Requests**: Users can send friend requests to others by visiting their profiles. Pending friend requests can be accepted or rejected. Accepted requests add users to each other's friend lists.
-
 - **Friend Profile Options**: Users can perform actions on friends' profiles, including "Remove Friend" and "Chat."
 
 ## User Flow
@@ -88,7 +90,6 @@ To get started with the Django Chat Application, follow these steps:
 
 5. Open a web browser and navigate to `http://localhost:8000/` to access the application.
 
-
 ## Contributions
 
 We welcome contributions from the community! If you'd like to contribute to the project, please follow these guidelines:
@@ -123,15 +124,15 @@ Here are some screenshots from the Django Chat Application:
 
 ![Friend Management](https://filesstatic.netlify.app/Chatapp/img/interface.png)
 
-**Search Friends**
+**Search Friends:**
 
 ![Search Page](https://filesstatic.netlify.app/Chatapp/img/search.png)
 
-**Edit Profile**
+**Edit Profile:**
 
 ![Edit Profile](https://filesstatic.netlify.app/Chatapp/img/edit.png)
 
-**Profile**
+**Profile:**
 
 ![Profile](https://filesstatic.netlify.app/Chatapp/img/user.png)
 
