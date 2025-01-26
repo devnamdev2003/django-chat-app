@@ -4,9 +4,11 @@ import os
 
 load_dotenv()
 
-DEVELOPMENT = 'live'
-# DEVELOPMENT = "local"
+DEVELOPMENT = "live"
+DEVELOPMENT = "local"
+DEVELOPMENT = "open"
 DEBUG = True
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 if DEVELOPMENT == "local":
@@ -20,6 +22,20 @@ if DEVELOPMENT == "local":
             "PASSWORD": os.getenv("DB_PASS_LOCAL"),
             "HOST": os.getenv("DB_HOST_LOCAL"),
             "PORT": "",
+        }
+    }
+    SITE_URL = "http://localhost:8000"
+    SECRET_KEY = os.getenv("SECRET_KEY")
+
+
+elif DEVELOPMENT == "open":
+    # open
+    DEBUG = True
+    SECRET_KEY = "django-insecure-**7)n#r9c(cra!m_$clhc5ff0tycci6!pn^n&_72fx^f6z(pzl"
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
     SITE_URL = "http://localhost:8000"
@@ -42,12 +58,9 @@ else:
         }
     }
     SITE_URL = "https://devnoms.onrender.com"
+    SECRET_KEY = os.getenv("SECRET_KEY")
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = ["*"]
 
 

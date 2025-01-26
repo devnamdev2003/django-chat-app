@@ -113,7 +113,7 @@ Clone the **Devnoms Chat App** repository and set up locally:
 4. **Run the Server**
 
    ```bash
-   python manage.py runserver
+   daphne devnoms.asgi:application
    ```
 
 5. Open your browser and navigate to: `http://localhost:8000/`.
